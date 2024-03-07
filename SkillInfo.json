@@ -1,0 +1,4 @@
+[
+    {"skillName" : "BusterSword", "description" : "A mighty blow to both pride and body", "numOfLevels" : 5},
+    {"skillName" : "MiniSword", "description" : "A mighty blow to only their pride", "numOfLevels" : 3}
+]
