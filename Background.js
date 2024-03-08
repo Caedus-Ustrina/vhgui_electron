@@ -74,18 +74,23 @@ export const ClickAndDragBackground = () => {
         setCanDrag(true);
     }
 
-    return ( <div className="DraggableContainer" >
-        <h1>Draggable {totalLevel}</h1>
-        <div className={classNames("ItemsContainer", { "activeItemsContainer" : IsDown })} 
-            ref={itemsContainer}
-            onMouseDown={((e) => handleMouseDown(e))}
-            onMouseUp={((e) => handleMouseUp(e))}
-            onMouseLeave={((e) => handleMouseLeaveContainer(e))}
-            onMouseMove={((e) => handleMouseMove(e))}
-        >
-            <SkillInterface handleTotalLevel = {handleTotalLevel} 
-            handleEnterInterfaceButton = {handleEnterInterfaceButton}
-            handleLeaveInterfaceButton = {handleLeaveInterfaceButton}/>
-        </div>
+    return ( 
+        <div className="InterfaceSelectionGrid">
+            <button>Abilities</button>
+            <button>Talents</button>
+            <h1> Draggable {totalLevel}</h1>
+            <div className="DraggableContainer" >
+                <div className={classNames("ItemsContainer", { "activeItemsContainer" : IsDown })} 
+                    ref={itemsContainer}
+                    onMouseDown={((e) => handleMouseDown(e))}
+                    onMouseUp={((e) => handleMouseUp(e))}
+                    onMouseLeave={((e) => handleMouseLeaveContainer(e))}
+                    onMouseMove={((e) => handleMouseMove(e))}
+                >
+                    <SkillInterface handleTotalLevel = {handleTotalLevel} 
+                    handleEnterInterfaceButton = {handleEnterInterfaceButton}
+                    handleLeaveInterfaceButton = {handleLeaveInterfaceButton}/>
+                </div>
+            </div>
     </div> );
 }

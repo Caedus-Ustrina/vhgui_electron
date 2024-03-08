@@ -59,6 +59,7 @@ a:hover {
   align-items: center;
   margin: 20px 0;
 }
+
 .DraggableContainer {
   background-image: url("Dirt_background_BE1.jpg");
   border: 1px solid red;
@@ -68,6 +69,8 @@ a:hover {
   justify-content: center;
   align-items: center;
   padding: 60px;
+  grid-column-start: button1;
+  grid-column-end: lastline;
 }
 
 .ItemsContainer {
@@ -80,6 +83,14 @@ a:hover {
   overflow: hidden;
   cursor: grab;
   user-select: none;
+}
+
+.InterfaceSelectionGrid {
+  width: 100%;
+  display: grid;
+  text-align: center;
+  grid-template-columns: [button1]1fr [button2]1fr [description]8fr [lastline];
+  grid-template-rows: [buttons] 10% [container];
 }
 
 .item {
