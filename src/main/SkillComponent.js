@@ -38,17 +38,17 @@ const SkillComponent = (props) => {
 
     return <div>
             <LevelUpButton handleMouseDown = {handleLevelUp} 
-            handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}/>
+            handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}
+            handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}/>
             <LevelDownButton handleMouseDown = {handleLevelDown} 
-            handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}/>
+            handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}
+            handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}/>
             <div className="item">
                 <Specializations specializations = {props.skill.specializations}
                     handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}
                     handleLeaveInterfaceButton={props.handleLeaveInterfaceButton} />
                 <LevelIndicatorsContainer skill={props.skill} 
-                    totalLevels={level}
-                    handleEnterInterfaceButton={props.handleEnterInterfaceButton}
-                    handleLeaveInterfaceButton={props.handleLeaveInterfaceButton} />
+                    totalLevels={level}/>
             </div>
         </div>
 }
@@ -73,7 +73,7 @@ const Specializations = (props) => {
 const Specialization = (props) => {
     return <button className ={classNames("specializationButton", {"activeSpecializationButton" : props.selected})}
             key={props.specialization.id}
-            onMouseEnter={((e) => props.handleMouseEnter(e))}
+            onMouseEnter={props.handleMouseEnter}
             onMouseLeave={props.handleMouseLeave}
             onMouseDown={((e) => props.handleMouseDown(props.specialization.id))}>
                 {props.specialization.name}
@@ -83,8 +83,8 @@ const Specialization = (props) => {
 const LevelDownButton = (props) => {
     //create button and hold logic for number of levels in the skill here
     return <button onMouseDown={props.handleMouseDown}
-        onMouseEnter={((e) => props.handleEnterInterfaceButton(e))}
-        onMouseLeave={(() => props.handleLeaveInterfaceButton)}>
+        onMouseEnter={props.handleEnterInterfaceButton}
+        onMouseLeave={props.handleLeaveInterfaceButton}>
         LevelDown
     </button>
 }
@@ -92,7 +92,7 @@ const LevelDownButton = (props) => {
 const LevelUpButton = (props) => {
     //create button and hold logic for number of levels in the skill here
     return <button onMouseDown={props.handleMouseDown}
-            onMouseEnter={((e) => props.handleEnterInterfaceButton(e))}
+            onMouseEnter={props.handleEnterInterfaceButton}
             onMouseLeave={props.handleLeaveInterfaceButton}>
         LevelUp
     </button>
