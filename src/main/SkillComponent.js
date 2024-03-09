@@ -36,7 +36,7 @@ const SkillComponent = (props) => {
         }
     }
 
-    return <div>
+    return <div className="SkillContainer">
             <LevelUpButton handleMouseDown = {handleLevelUp} 
             handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}
             handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}/>

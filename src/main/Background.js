@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef} from "react";
 import classNames from "classnames";
-import { SkillInterface } from "./src/main/SkillComponent";
+import { SkillInterface } from "./SkillComponent";
 
 export const ClickAndDragBackground = () => {
 
@@ -78,7 +78,7 @@ export const ClickAndDragBackground = () => {
         <div className="InterfaceSelectionGrid">
             <button>Abilities</button>
             <button>Talents</button>
-            <h1> Draggable {totalLevel}</h1>
+            <h1> Levels {totalLevel}</h1>
             <div className="DraggableContainer" >
                 <div className={classNames("ItemsContainer", { "activeItemsContainer" : IsDown })} 
                     ref={itemsContainer}
