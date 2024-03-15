@@ -60,6 +60,16 @@ a:hover {
   margin: 20px 0;
 }
 
+.OrganizedInterface {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.DescriptionsBox {
+  grid-column-start: 4;
+  grid-column-end: 5;
+}
+
 .DraggableContainer {
   background-image: url("Dirt_background_BE1.jpg");
   border: 1px solid red;
@@ -91,7 +101,7 @@ a:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 8fr;
-  padding: 10%;
+  padding: 5%;
 }
 
 .InterfaceSelectionGrid {
@@ -100,6 +110,8 @@ a:hover {
   text-align: center;
   grid-template-columns: [button1]1fr [button2]1fr [description]8fr [lastline];
   grid-template-rows: [buttons] 10% [container];
+  grid-column-start: 1;
+  grid-column-end: 4;
 }
 
 .item {
@@ -143,12 +155,14 @@ a:hover {
   height: 32px;
   width: 32px;
   background-image: url("SkillPipActive.png");
+  justify-self: center;
 }
 
 .SkillPipsInactive {
   height: 32px;
   width: 32px;
   background-image: url("SkillPipInactive.png");
+  justify-self: center;
 }
 
 .SkillPipsContainerSmall {

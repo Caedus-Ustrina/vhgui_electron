@@ -1,7 +1,7 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.css';
-import { ClickAndDragBackground } from '../main/Background';
+import { OrganizedInterface } from '../main/InterfaceOrganizer';
 
 function Hello() {
   return (
@@ -44,7 +44,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<ClickAndDragBackground />} />
+        <Route path="/" element={<OrganizedInterface />} />
       </Routes>
     </Router>
   );

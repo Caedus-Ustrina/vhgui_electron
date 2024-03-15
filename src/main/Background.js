@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef} from "react";
 import classNames from "classnames";
 import { SkillInterface } from "./SkillComponent";
 
-export const ClickAndDragBackground = () => {
+export const BuildInterface = () => {
 
     const [IsDown, setIsDown] = useState(false);
     const [startX, setStartX] = useState(0);
