@@ -61,6 +61,7 @@ a:hover {
 }
 
 .OrganizedInterfaceFull {
+  display: flex;
 }
 
 .OrganizedInterfacePartial {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef} from "react";
 import classNames from "classnames";
 import { SkillInterface } from "./SkillComponent";
+import { TalentInterface } from "./TalentComponent";
 
 export const BuildInterface = (props) => {
 
@@ -74,10 +75,17 @@ export const BuildInterface = (props) => {
         setCanDrag(true);
     }
 
+    const [selectedAbilities, setSelectedAbilities] = useState(true)
+
+    function selectAbilities(selected)
+    {
+        setSelectedAbilities(selected);
+    }
+
     return ( 
         <div className="InterfaceSelectionGrid">
-            <button>Abilities</button>
-            <button>Talents</button>
+            <button onMouseDown={() => selectAbilities(true)}>Abilities</button>
+            <button onMouseDown={() => selectAbilities(false)}>Talents</button>
             <h1> Levels {totalLevel}</h1>
             <div className="DraggableContainer" >
                 <div className={classNames("ItemsContainer", { "activeItemsContainer" : IsDown })} 
@@ -87,10 +95,13 @@ export const BuildInterface = (props) => {
                     onMouseLeave={((e) => handleMouseLeaveContainer(e))}
                     onMouseMove={((e) => handleMouseMove(e))}
                 >
+                    {selectedAbilities ?
                     <SkillInterface handleTotalLevel = {handleTotalLevel} 
                     handleEnterInterfaceButton = {handleEnterInterfaceButton}
                     handleLeaveInterfaceButton = {handleLeaveInterfaceButton}
-                    handleDescription = {props.handleDescription}/>
+                    handleDescription = {props.handleDescription}/> :
+                    <TalentInterface />
+                    }   
                 </div>
             </div>
     </div> );
