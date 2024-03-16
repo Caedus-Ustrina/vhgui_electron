@@ -60,7 +60,10 @@ a:hover {
   margin: 20px 0;
 }
 
-.OrganizedInterface {
+.OrganizedInterfaceFull {
+}
+
+.OrganizedInterfacePartial {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }

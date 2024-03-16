@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef} from "react";
 import classNames from "classnames";
 import { SkillInterface } from "./SkillComponent";
 
-export const BuildInterface = () => {
+export const BuildInterface = (props) => {
 
     const [IsDown, setIsDown] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -89,7 +89,8 @@ export const BuildInterface = () => {
                 >
                     <SkillInterface handleTotalLevel = {handleTotalLevel} 
                     handleEnterInterfaceButton = {handleEnterInterfaceButton}
-                    handleLeaveInterfaceButton = {handleLeaveInterfaceButton}/>
+                    handleLeaveInterfaceButton = {handleLeaveInterfaceButton}
+                    handleDescription = {props.handleDescription}/>
                 </div>
             </div>
     </div> );

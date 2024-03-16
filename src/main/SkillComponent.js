@@ -5,7 +5,8 @@ import classNames from "classnames";
 export const SkillInterface = (props) => {
     return <Skills handleTotalLevel = {props.handleTotalLevel} 
         handleEnterInterfaceButton={props.handleEnterInterfaceButton}
-        handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}/>
+        handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}
+        handleDescription = {props.handleDescription}/>
 }
 
 const Skills = (props) => {
@@ -15,7 +16,8 @@ const Skills = (props) => {
          handleTotalLevel = {props.handleTotalLevel} 
          key={skill.id}
          handleEnterInterfaceButton={props.handleEnterInterfaceButton}
-         handleLeaveInterfaceButton={props.handleLeaveInterfaceButton} />
+         handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}
+         handleDescription = {props.handleDescription} />
     });
 }
 
@@ -46,7 +48,8 @@ const SkillComponent = (props) => {
             <div className="item">
                 <Specializations specializations = {props.skill.specializations}
                     handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}
-                    handleLeaveInterfaceButton={props.handleLeaveInterfaceButton} />
+                    handleLeaveInterfaceButton={props.handleLeaveInterfaceButton} 
+                    handleDescription = {props.handleDescription} />
                 <LevelIndicatorsContainer skill={props.skill} 
                     totalLevels={level}/>
             </div>
@@ -66,16 +69,23 @@ const Specializations = (props) => {
                     specialization = {specialization}
                     handleMouseEnter = {props.handleEnterInterfaceButton}
                     handleMouseLeave = {props.handleLeaveInterfaceButton}
-                    handleMouseDown = {handleMultipleSpecializations}/>
+                    handleMouseDown = {handleMultipleSpecializations}
+                    handleDescription = {props.handleDescription} />
     })
 }
 
 const Specialization = (props) => {
+
+    function handleMouseDown(e) {
+        props.handleMouseDown(props.specialization.id)
+        props.handleDescription(props.specialization.id)
+    }
+    
     return <button className ={classNames("specializationButton", {"activeSpecializationButton" : props.selected})}
             key={props.specialization.id}
             onMouseEnter={props.handleMouseEnter}
             onMouseLeave={props.handleMouseLeave}
-            onMouseDown={((e) => props.handleMouseDown(props.specialization.id))}>
+            onMouseDown={() => handleMouseDown(props.specialization.id)}>
                 {props.specialization.name}
         </button>
 }
