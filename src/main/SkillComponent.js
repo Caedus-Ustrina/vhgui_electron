@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useLayoutEffect} from "react";
 import abilities from '/abilities.json';
 import classNames from "classnames";
+import { ReadBuildInfo, StoreLevelInfo } from "./StoreBuildInfo"
 
 export const SkillInterface = (props) => {
     return <Skills handleTotalLevel = {props.handleTotalLevel} 
@@ -24,18 +25,41 @@ const Skills = (props) => {
 const SkillComponent = (props) => {
     const [level, setLevel] = useState(0)
 
+    // Should be an object of this kind
+    //{
+    //  name : "ability_name"
+    //  specialization : "specialization.id",
+    //  level : 1,
+    //}
+    const [skillInfo, setSkillInfo] = useState({
+        name: "",
+        specialization: "",
+        level: 0,
+    });
+
+    useEffect(() => {
+     setSkillInfo(ReadBuildInfo(props.skill.id));
+     setLevel(ReadBuildInfo(props.skill.id).level);
+    }, []);
+
     function handleLevelUp(){
         if(level < props.skill.maxLearnableLevel || level < props.skill.maxLearnableTier){
-            setLevel(level+1)
-            props.handleTotalLevel(1)
+            setLevel(level+1);
+            props.handleTotalLevel(1);
         }
+
+        StoreLevelInfo(props.skill.id, 1);
+        console.log(skillInfo);
+        console.log(level);
     }
 
     function handleLevelDown(){
         if(level > 0){
-            setLevel(level-1)
-            props.handleTotalLevel(-1)
+            setLevel(level-1);
+            props.handleTotalLevel(-1);
         }
+
+        StoreLevelInfo(props.skill.id, -1);
     }
 
     return <div className="SkillContainer">
@@ -47,9 +71,11 @@ const SkillComponent = (props) => {
             handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}/>
             <div className="item">
                 <Specializations specializations = {props.skill.specializations}
+                    selectedSpecialization = {skillInfo.specialization}
                     handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}
                     handleLeaveInterfaceButton={props.handleLeaveInterfaceButton} 
-                    handleDescription = {props.handleDescription} />
+                    handleDescription = {props.handleDescription} 
+                    specializationSelected = {} />
                 <LevelIndicatorsContainer skill={props.skill} 
                     totalLevels={level}/>
             </div>
