@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useLayoutEffect} from "react";
 import abilities from '/abilities.json';
 import classNames from "classnames";
-import { ReadBuildInfo, StoreLevelInfo } from "./StoreBuildInfo"
+import { ReadBuildInfo, StoreLevelInfo, StoreSkillInfo } from "./StoreBuildInfo"
 
 export const SkillInterface = (props) => {
     return <Skills handleTotalLevel = {props.handleTotalLevel} 
@@ -37,9 +37,11 @@ const SkillComponent = (props) => {
         level: 0,
     });
 
+    // When mounting the component, check the current build info to populate the information.
     useEffect(() => {
-     setSkillInfo(ReadBuildInfo(props.skill.id));
-     setLevel(ReadBuildInfo(props.skill.id).level);
+        var skillInformation = ReadBuildInfo(props.skill.id);
+        setSkillInfo(skillInformation);
+        setLevel(skillInformation.level);
     }, []);
 
     function handleLevelUp(){
@@ -48,9 +50,7 @@ const SkillComponent = (props) => {
             props.handleTotalLevel(1);
         }
 
-        StoreLevelInfo(props.skill.id, 1);
-        console.log(skillInfo);
-        console.log(level);
+        StoreLevelInfo(props.skill.id,  level < props.skill.maxLearnableLevel ? 1 : 0);
     }
 
     function handleLevelDown(){
@@ -59,7 +59,12 @@ const SkillComponent = (props) => {
             props.handleTotalLevel(-1);
         }
 
-        StoreLevelInfo(props.skill.id, -1);
+        StoreLevelInfo(props.skill.id, level > 0 ? -1 : 0);
+    }
+
+    function handleSkillInfoSpecialization(e){
+        setSkillInfo({...skillInfo, specialization: e});
+        StoreSkillInfo(props.skill.id, e, level);
     }
 
     return <div className="SkillContainer">
@@ -74,8 +79,9 @@ const SkillComponent = (props) => {
                     selectedSpecialization = {skillInfo.specialization}
                     handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}
                     handleLeaveInterfaceButton={props.handleLeaveInterfaceButton} 
+                    handleSpecilizationInfo = {handleSkillInfoSpecialization}
                     handleDescription = {props.handleDescription} 
-                    specializationSelected = {} />
+                    specializationSelected = {skillInfo.specialization} />
                 <LevelIndicatorsContainer skill={props.skill} 
                     totalLevels={level}/>
             </div>
@@ -89,10 +95,15 @@ const Specializations = (props) => {
         setSpecializationSelected(e);
     }
 
+    useEffect(() => {
+        setSpecializationSelected(props.specializationSelected);
+    }, [props.specializationSelected]);
+
     return props.specializations.map(specialization => {
         return <Specialization key = {specialization.id}
                     selected = {specializationSelected == specialization.id ? true : false}
                     specialization = {specialization}
+                    handleSpecilizationInfo = {props.handleSpecilizationInfo}
                     handleMouseEnter = {props.handleEnterInterfaceButton}
                     handleMouseLeave = {props.handleLeaveInterfaceButton}
                     handleMouseDown = {handleMultipleSpecializations}
@@ -105,6 +116,7 @@ const Specialization = (props) => {
     function handleMouseDown(e) {
         props.handleMouseDown(props.specialization.id)
         props.handleDescription(props.specialization.id)
+        props.handleSpecilizationInfo(props.specialization.id);
     }
     
     return <button className ={classNames("specializationButton", {"activeSpecializationButton" : props.selected})}
