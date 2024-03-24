@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useLayoutEffect} from "react";
 import abilities from '/abilities.json';
 import classNames from "classnames";
-import { ReadBuildInfo, StoreLevelInfo, StoreSkillInfo } from "./StoreBuildInfo"
+import { ReadBuildInfo, StoreLevelInfo, StoreSkillInfo } from "./StoreBuildInfo";
+import { LevelUpButton, LevelDownButton, LevelIndicatorsContainer, LevelIndicators } from "./LevelingButtons";
 
 export const SkillInterface = (props) => {
     return <Skills handleTotalLevel = {props.handleTotalLevel} 
@@ -82,8 +83,9 @@ const SkillComponent = (props) => {
                     handleSpecilizationInfo = {handleSkillInfoSpecialization}
                     handleDescription = {props.handleDescription} 
                     specializationSelected = {skillInfo.specialization} />
-                <LevelIndicatorsContainer skill={props.skill} 
-                    totalLevels={level}/>
+                <LevelIndicatorsContainer 
+                    maxLearnableTier={props.skill.maxLearnableTier || props.skill.maxLearnableLevel}
+                    totalLevels={level} />
             </div>
         </div>
 }
@@ -126,56 +128,4 @@ const Specialization = (props) => {
             onMouseDown={() => handleMouseDown(props.specialization.id)}>
                 {props.specialization.name}
         </button>
-}
-
-const LevelDownButton = (props) => {
-    //create button and hold logic for number of levels in the skill here
-    return <button onMouseDown={props.handleMouseDown}
-        onMouseEnter={props.handleEnterInterfaceButton}
-        onMouseLeave={props.handleLeaveInterfaceButton}>
-        LevelDown
-    </button>
-}
-
-const LevelUpButton = (props) => {
-    //create button and hold logic for number of levels in the skill here
-    return <button onMouseDown={props.handleMouseDown}
-            onMouseEnter={props.handleEnterInterfaceButton}
-            onMouseLeave={props.handleLeaveInterfaceButton}>
-        LevelUp
-    </button>
-}
-
-const LevelIndicatorsContainer = (props) => {
-    const maxLevel = props.skill.maxLearnableTier > 0 ? props.skill.maxLearnableTier : props.skill.maxLearnableLevel;
-    const currentLevel = props.totalLevels;
-    //console.log(props)
-    return <div key={props.skill.id} >
-            { //Render the skill pips based on number of pips needed
-                props.skill.maxLearnableTier > 3 || props.skill.maxLearnableLevel > 3 ? 
-                props.skill.maxLearnableTier > 9 || props.skill.maxLearnableLevel > 9 ?
-                    <div className="SkillPipsContainerLarge">
-                        <LevelIndicators maxLevels={maxLevel} currentLevels={currentLevel} />
-                    </div> :
-                <div className="SkillPipsContainerMedium">
-                    <LevelIndicators maxLevels={maxLevel} currentLevels={currentLevel} />
-                </div> :
-                <div className="SkillPipsContainerSmall">
-                    <LevelIndicators maxLevels={maxLevel} currentLevels={currentLevel} />
-                </div>
-            }
-        </div>;
-}
-
-const LevelIndicators = (props) => {
-    let items = [];
-    for(var i = 0; i < props.maxLevels; i++){
-        if(i - props.currentLevels < 0){
-            items.push(<div key={i} className="SkillPipsActive"/>)
-        }
-        else{
-            items.push(<div key={i} className="SkillPipsInactive"/>)
-        }
-    }
-    return items;
 }

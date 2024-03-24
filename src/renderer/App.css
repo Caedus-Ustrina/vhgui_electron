@@ -77,7 +77,7 @@ a:hover {
 .DraggableContainer {
   background-image: url("Dirt_background_BE1.jpg");
   border: 1px solid red;
-  height: 800px;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

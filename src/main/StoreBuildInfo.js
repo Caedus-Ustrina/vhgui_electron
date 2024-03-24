@@ -13,6 +13,18 @@ export function StoreSkillInfo(skillId, specializationId, level){
     }
 }
 
+export function StoreTalentInfo(talentId, level){
+    if(!buildInformation[talentId]){
+        buildInformation[talentId] = {
+            name : talentId,
+            specialization : '',
+            level : level,
+        };
+    } else {
+        buildInformation[skillId].specialization = specializationId;
+    }
+}
+
 export function StoreLevelInfo(skillId, changeInLevel){
     if(!buildInformation[skillId]){
         buildInformation[skillId] = {
