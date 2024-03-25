@@ -42,7 +42,6 @@ const SkillComponent = (props) => {
     // When mounting the component, check the current build info to populate the information.
     useEffect(() => {
         var skillInformation = ReadBuildInfo(props.skill.id);
-        console.log(skillInformation);
         setSkillInfo(skillInformation);
         setLevel(skillInformation.level);
     }, []);
