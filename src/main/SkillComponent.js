@@ -24,7 +24,8 @@ const Skills = (props) => {
 }
 
 const SkillComponent = (props) => {
-    const [level, setLevel] = useState(0)
+    const [level, setLevel] = useState(0);
+    const costToLearn = props.skill !== undefined ? props.skill.specializations[0].tiers[0].learnPointCost : 0;
 
     // Should be an object of this kind
     //{
@@ -41,6 +42,7 @@ const SkillComponent = (props) => {
     // When mounting the component, check the current build info to populate the information.
     useEffect(() => {
         var skillInformation = ReadBuildInfo(props.skill.id);
+        console.log(skillInformation);
         setSkillInfo(skillInformation);
         setLevel(skillInformation.level);
     }, []);
@@ -48,16 +50,16 @@ const SkillComponent = (props) => {
     function handleLevelUp(){
         if(level < props.skill.maxLearnableLevel || level < props.skill.maxLearnableTier){
             setLevel(level+1);
-            props.handleTotalLevel(1);
+            props.handleTotalLevel(costToLearn);
         }
 
-        StoreLevelInfo(props.skill.id,  level < props.skill.maxLearnableLevel ? 1 : 0);
+        StoreLevelInfo(props.skill.id,  level < (props.skill.maxLearnableLevel || props.skill.maxLearnableTier) ? 1 : 0);
     }
 
     function handleLevelDown(){
         if(level > 0){
             setLevel(level-1);
-            props.handleTotalLevel(-1);
+            props.handleTotalLevel(-costToLearn);
         }
 
         StoreLevelInfo(props.skill.id, level > 0 ? -1 : 0);

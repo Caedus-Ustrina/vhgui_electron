@@ -25,6 +25,7 @@ const Talents = (props) => {
 
 const TalentComponent = (props) => {
     const [level, setLevel] = useState(0);
+    const maxLearnableTier = props.talent.tiers !== undefined ? props.talent.tiers.length : 0;
 
     // Should be an object of this kind
     //{
@@ -50,7 +51,6 @@ const TalentComponent = (props) => {
             setLevel(level+1);
             props.handleTotalLevel(1);
         }
-
         StoreLevelInfo(props.talent.id,  level < maxLearnableTier ? 1 : 0);
     }
 
@@ -74,7 +74,7 @@ const TalentComponent = (props) => {
                 <button className="specializationButton" onMouseDown={() => props.handleDescription(props.talent.id)}>
                     {props.talent.name}
                 </button>
-            <LevelIndicatorsContainer maxLearnableTier={props.talent.tiers !== undefined ? props.talent.tiers.length : 0}
+            <LevelIndicatorsContainer maxLearnableTier={maxLearnableTier}
                     totalLevels={level}/>
         </div>
     </div>
