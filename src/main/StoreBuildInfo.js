@@ -7,9 +7,21 @@ export function StoreSkillInfo(skillId, specializationId, level){
             name : skillId,
             specialization : specializationId,
             level : level,
+            isAbility : true,
         };
     } else {
         buildInformation[skillId].specialization = specializationId;
+    }
+}
+
+export function InitializeBuildInfo(skillId, specializationId, level, isAbility){
+    if(!buildInformation[skillId]){
+        buildInformation[skillId] = {
+            name : skillId,
+            specialization : specializationId,
+            level : level,
+            isAbility : isAbility,
+        };
     }
 }
 
@@ -19,18 +31,20 @@ export function StoreTalentInfo(talentId, level){
             name : talentId,
             specialization : '',
             level : level,
+            isAbility : false,
         };
     } else {
         buildInformation[skillId].specialization = specializationId;
     }
 }
 
-export function StoreLevelInfo(skillId, changeInLevel){
+export function StoreLevelInfo(skillId, changeInLevel, isAbility){
     if(!buildInformation[skillId]){
         buildInformation[skillId] = {
             name : skillId,
             specialization : '',
             level : changeInLevel,
+            isAbility : isAbility,
         };
     } else {
         buildInformation[skillId].level += changeInLevel;
@@ -48,4 +62,8 @@ export function ReadBuildInfo(skillId){
     } else {
         return buildInformation[skillId];
     }
+}
+
+export function ReadFullBuild(){
+    return buildInformation;
 }

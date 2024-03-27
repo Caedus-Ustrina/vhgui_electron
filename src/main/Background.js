@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef} from "react";
 import classNames from "classnames";
 import { SkillInterface } from "./SkillComponent";
 import { TalentInterface } from "./TalentComponent";
+import { ReadFullBuild } from "./StoreBuildInfo";
+import {CopyToClipboard} from "react-copy-to-clipboard";
 
 export const BuildInterface = (props) => {
 
@@ -12,6 +14,7 @@ export const BuildInterface = (props) => {
     const [scrollDownState, setScrollDownState] = useState(null);
     const [mouseMovedX, setStateMouseMovedX] = useState(0);
     const [mouseMovedY, setStateMouseMovedY] = useState(0);
+    const [buildInfo, setBuildInfo] = useState("");
 
     // This hook is resonsible for disabling click and drag functionality why hovering a level up or level down button
     const [canDrag, setCanDrag] = useState(true);
@@ -61,6 +64,7 @@ export const BuildInterface = (props) => {
 
     useEffect(() => {
         setCanDrag(canDrag);
+        setBuildInfo(buildString());
     });
     
     function handleTotalLevel(e){
@@ -82,11 +86,36 @@ export const BuildInterface = (props) => {
         setSelectedAbilities(selected);
     }
 
+    function buildString(){
+        // This function should return a string with the build information
+        const buildInformation = ReadFullBuild();
+        var buildString = "";
+
+        for (const key in buildInformation){
+            if(buildInformation[key].isAbility && buildInformation[key].level > 0){
+                buildString += buildInformation[key].specialization + ":" + buildInformation[key].level + "|";
+            }
+        }
+
+        buildString = buildString.slice(0, -1) + ";";
+
+        for (const key in buildInformation){
+            if(!buildInformation[key].isAbility && buildInformation[key].level > 0){
+                buildString += buildInformation[key].name + ":" + buildInformation[key].level + "|";
+            }
+        }
+
+        return buildString = buildString.slice(0, -1) + ";a";
+    }
+
     return ( 
         <div className="InterfaceSelectionGrid">
             <button onMouseDown={() => selectAbilities(true)}>Abilities</button>
             <button onMouseDown={() => selectAbilities(false)}>Talents</button>
             <h1> Levels {totalLevel}</h1>
+            <CopyToClipboard text={buildInfo}>
+                <button>Copy Build To Clipboard</button>
+            </CopyToClipboard>
             <div className="DraggableContainer" >
                 <div className={classNames("ItemsContainer", { "activeItemsContainer" : IsDown })} 
                     ref={itemsContainer}

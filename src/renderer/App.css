@@ -112,7 +112,7 @@ a:hover {
   width: 100%;
   display: grid;
   text-align: center;
-  grid-template-columns: [button1]1fr [button2]1fr [description]8fr [lastline];
+  grid-template-columns: [button1]1fr [button2]1fr [description]7fr [export]1fr [lastline];
   grid-template-rows: [buttons] 10% [container];
   grid-column-start: 1;
   grid-column-end: 4;

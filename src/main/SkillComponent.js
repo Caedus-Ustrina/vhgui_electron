@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useLayoutEffect} from "react";
 import abilities from '/abilities.json';
 import classNames from "classnames";
-import { ReadBuildInfo, StoreLevelInfo, StoreSkillInfo } from "./StoreBuildInfo";
+import { ReadBuildInfo, StoreLevelInfo, StoreSkillInfo, InitializeBuildInfo } from "./StoreBuildInfo";
 import { LevelUpButton, LevelDownButton, LevelIndicatorsContainer, LevelIndicators } from "./LevelingButtons";
 
 export const SkillInterface = (props) => {
@@ -44,6 +44,7 @@ const SkillComponent = (props) => {
         var skillInformation = ReadBuildInfo(props.skill.id);
         setSkillInfo(skillInformation);
         setLevel(skillInformation.level);
+        InitializeBuildInfo(props.skill.id, props.skill.specializations[0].id, level, true);
     }, []);
 
     function handleLevelUp(){
@@ -52,7 +53,7 @@ const SkillComponent = (props) => {
             props.handleTotalLevel(costToLearn);
         }
 
-        StoreLevelInfo(props.skill.id,  level < (props.skill.maxLearnableLevel || props.skill.maxLearnableTier) ? 1 : 0);
+        StoreLevelInfo(props.skill.id, level < (props.skill.maxLearnableLevel || props.skill.maxLearnableTier) ? 1 : 0, true);
     }
 
     function handleLevelDown(){
@@ -61,7 +62,7 @@ const SkillComponent = (props) => {
             props.handleTotalLevel(-costToLearn);
         }
 
-        StoreLevelInfo(props.skill.id, level > 0 ? -1 : 0);
+        StoreLevelInfo(props.skill.id, level > 0 ? -1 : 0, true);
     }
 
     function handleSkillInfoSpecialization(e){

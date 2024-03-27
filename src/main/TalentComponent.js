@@ -51,7 +51,7 @@ const TalentComponent = (props) => {
             setLevel(level+1);
             props.handleTotalLevel(props.talent.tiers[level].learnPointCost);
         }
-        StoreLevelInfo(props.talent.id,  level < maxLearnableTier ? 1 : 0);
+        StoreLevelInfo(props.talent.id,  level < maxLearnableTier ? 1 : 0, false);
     }
 
     function handleLevelDown(){
@@ -60,7 +60,7 @@ const TalentComponent = (props) => {
             props.handleTotalLevel(-(props.talent.tiers[level-1].learnPointCost));
         }
 
-        StoreLevelInfo(props.talent.id,  level > 0 ? -1 : 0);
+        StoreLevelInfo(props.talent.id,  level > 0 ? -1 : 0, false);
     }
 
     return <div className="SkillContainer">
