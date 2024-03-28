@@ -59,7 +59,7 @@ export const TalentComponent = (props) => {
     }, []);
 
     function handleLevelUp(){
-        if(props.totalLevel + costToLearn <= 100){
+        if(props.totalLevel + costToLearn <= 100 && props.groupLevel + costToLearn <= props.maxGroupLevel){
             if(level < maxLearnableTier){
                 setLevel(level+1);
                 props.handleTotalLevel(props.talent.tiers[level].learnPointCost);

@@ -37,7 +37,7 @@ export const OrganizedInterface = () => {
 }
 
 const DescriptionsBox = (props) => {
-    return <div>
+    return <div className="DescriptionBox">
         {props.description}
     </div>
 }
