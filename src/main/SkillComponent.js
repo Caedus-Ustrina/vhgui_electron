@@ -86,7 +86,7 @@ const SkillComponent = (props) => {
                     handleDescription = {props.handleDescription} 
                     specializationSelected = {skillInfo.specialization} />
                 <LevelIndicatorsContainer 
-                    maxLearnableTier={props.skill.maxLearnableTier || props.skill.maxLearnableLevel}
+                    maxLearnableTier={props.skill.maxLearnableTier || props.skill.maxLearnableLevel || props.skill.specializations[0].maxLearnableTier}
                     totalLevels={level} />
             </div>
         </div>
