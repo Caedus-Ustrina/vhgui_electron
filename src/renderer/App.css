@@ -62,6 +62,8 @@ a:hover {
 
 .OrganizedInterfaceFull {
   display: flex;
+  padding: 1vh;
+  height: 95vh;
 }
 
 .OrganizedInterfacePartial {
@@ -69,20 +71,15 @@ a:hover {
   grid-template-columns: repeat(4, 1fr);
 }
 
-.DescriptionsBox {
-  grid-column-start: 4;
-  grid-column-end: 5;
-}
-
 .DraggableContainer {
   background-image: url("Dirt_background_BE1.jpg");
   border: 1px solid red;
   height: 80vh;
+  padding: 3vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 60px;
   grid-column-start: button1;
   grid-column-end: lastline;
 }
@@ -143,7 +140,7 @@ a:hover {
   display: grid;
   text-align: center;
   grid-template-columns: [button1]1fr [button2]1fr [description]7fr [export]1fr [lastline];
-  grid-template-rows: [buttons] 10% [container];
+  grid-template-rows: [buttons] 1fr [container];
   grid-column-start: 1;
   grid-column-end: 4;
 }
@@ -221,4 +218,11 @@ a:hover {
   grid-template-columns: 48px 48px 48px 48px 48px;
   grid-template-rows: 48px 48px;
   padding-top: 50px;
+}
+
+.DescriptionBox{
+  color: black;
+  background-color: white;
+  font-size: 2rem;
+  padding: 0.5vh;
 }
