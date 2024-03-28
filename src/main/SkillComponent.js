@@ -139,16 +139,17 @@ const Specialization = (props) => {
         props.handleMouseDown(props.specialization.id)
         props.handleDescription(props.specialization.id)
         props.handleSpecilizationInfo(props.specialization.id);
+        console.log("./" + toLower(props.specialization.id) + ".png");
     }
 
     function toLower(string){
-        return string.toLowerCase();
+        let newString = string.toLowerCase();
+        return newString.replace(/\s/, '_');
     }
 
     useEffect(() =>{
-        setImageSource(images["./" + toLower(props.specialization.name) + ".png"]);
-        console.log(imageSource);
-    }, [props.specialization.name]);
+        setImageSource(images["./" + toLower(props.specialization.id) + ".png"]);
+    }, []);
     
     return <button className ={classNames("specializationButton", {"activeSpecializationButton" : props.selected})}
             key={props.specialization.id}
