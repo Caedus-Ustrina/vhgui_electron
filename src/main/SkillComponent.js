@@ -8,7 +8,8 @@ export const SkillInterface = (props) => {
     return <Skills handleTotalLevel = {props.handleTotalLevel} 
         handleEnterInterfaceButton={props.handleEnterInterfaceButton}
         handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}
-        handleDescription = {props.handleDescription}/>
+        handleDescription = {props.handleDescription}
+        totalLevel = {props.totalLevel}/>
 }
 
 const Skills = (props) => {
@@ -19,13 +20,16 @@ const Skills = (props) => {
          key={skill.id}
          handleEnterInterfaceButton={props.handleEnterInterfaceButton}
          handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}
-         handleDescription = {props.handleDescription} />
+         handleDescription = {props.handleDescription} 
+         totalLevel = {props.totalLevel} />
     });
 }
 
 const SkillComponent = (props) => {
     const [level, setLevel] = useState(0);
-    const costToLearn = props.skill !== undefined ? props.skill.specializations[0].tiers[0].learnPointCost : 0;
+    const [isInitialized, setIsInitialized] = useState(false);
+    const [costToLearn, setCostToLearn] = useState(0);
+    const [maxLevel, setMaxLevel] = useState(0);
 
     // Should be an object of this kind
     //{
@@ -41,19 +45,25 @@ const SkillComponent = (props) => {
 
     // When mounting the component, check the current build info to populate the information.
     useEffect(() => {
+        if(isInitialized === false){
+            InitializeBuildInfo(props.skill.id, props.skill.specializations[0].id, level, true);
+        }
+        setCostToLearn(props.skill.specializations[0].tiers[0].learnPointCost);
+        setMaxLevel(props.skill.maxLearnableLevel || props.skill.maxLearnableTier || props.skill.specializations[0].maxLearnableTier);
         var skillInformation = ReadBuildInfo(props.skill.id);
         setSkillInfo(skillInformation);
         setLevel(skillInformation.level);
-        InitializeBuildInfo(props.skill.id, props.skill.specializations[0].id, level, true);
-    }, []);
+    }, [props.skill]);
 
     function handleLevelUp(){
-        if(level < props.skill.maxLearnableLevel || level < props.skill.maxLearnableTier){
-            setLevel(level+1);
-            props.handleTotalLevel(costToLearn);
-        }
+        if(props.totalLevel + costToLearn <= 100){
+            if(level < maxLevel){
+            setLevel(level+1)
+                props.handleTotalLevel(costToLearn);
+            }
 
-        StoreLevelInfo(props.skill.id, level < (props.skill.maxLearnableLevel || props.skill.maxLearnableTier) ? 1 : 0, true);
+            StoreLevelInfo(props.skill.id, level < maxLevel ? 1 : 0, true);
+        }
     }
 
     function handleLevelDown(){
@@ -86,7 +96,7 @@ const SkillComponent = (props) => {
                     handleDescription = {props.handleDescription} 
                     specializationSelected = {skillInfo.specialization} />
                 <LevelIndicatorsContainer 
-                    maxLearnableTier={props.skill.maxLearnableTier || props.skill.maxLearnableLevel || props.skill.specializations[0].maxLearnableTier}
+                    maxLearnableTier={maxLevel}
                     totalLevels={level} />
             </div>
         </div>

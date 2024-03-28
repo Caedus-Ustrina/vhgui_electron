@@ -128,11 +128,13 @@ export const BuildInterface = (props) => {
                     <SkillInterface handleTotalLevel = {handleTotalLevel} 
                     handleEnterInterfaceButton = {handleEnterInterfaceButton}
                     handleLeaveInterfaceButton = {handleLeaveInterfaceButton}
-                    handleDescription = {props.handleAbilityDescription}/> :
+                    handleDescription = {props.handleAbilityDescription}
+                    totalLevel = {totalLevel} />:
                     <TalentInterface handleTotalLevel = {handleTotalLevel} 
                     handleEnterInterfaceButton = {handleEnterInterfaceButton}
                     handleLeaveInterfaceButton = {handleLeaveInterfaceButton}
-                    handleDescription = {props.handleTalentDescription}/>
+                    handleDescription = {props.handleTalentDescription}
+                    totalLevel = {totalLevel} />
                     }   
                 </div>
             </div>

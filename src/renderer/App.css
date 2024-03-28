@@ -94,19 +94,49 @@ a:hover {
   padding: 50px;
   display: grid;
   grid-template-columns: repeat(8, 300px);
-  grid-template-rows: repeat(3, auto);
+  grid-template-rows: repeat(5, auto);
   white-space: nowrap;
   overflow: hidden;
   cursor: grab;
   user-select: none;
 }
 
+.TalentContainer {
+  display: grid;
+  grid-template-columns: inherit;
+  grid-template-rows: inherit;
+}
+
+.GroupingContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-start: 1;
+  grid-column-end: 9;
+  grid-row-start: 4;
+  grid-row-end: 6;
+}
+
+.GroupComponent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr repeat(2, 3fr);
+}
+
+.GroupTitle{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+}
 .SkillContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 8fr;
   padding: 5%;
 }
+
 
 .InterfaceSelectionGrid {
   width: 100%;
