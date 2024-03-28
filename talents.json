@@ -151,54 +151,6 @@
           }
         ]
       },
-      
-      {
-        "type": "tiered",
-        "id": "Stone_Skin",
-        "name": "Stone Skin",
-        "tiers": [
-          {
-            "type": "vanilla_attribute",
-            "attribute": "minecraft:generic.knockback_resistance",
-            "amount": 0.1,
-            "operation": "ADDITION",
-            "learnPointCost": 2,
-            "regretPointCost": 1,
-            "unlockLevel": 0,
-            "id": "stone_skin_1"
-          },
-          {
-            "type": "vanilla_attribute",
-            "attribute": "minecraft:generic.knockback_resistance",
-            "amount": 0.2,
-            "operation": "ADDITION",
-            "learnPointCost": 2,
-            "regretPointCost": 1,
-            "unlockLevel": 5,
-            "id": "stone_skin_2"
-          },
-          {
-            "type": "vanilla_attribute",
-            "attribute": "minecraft:generic.knockback_resistance",
-            "amount": 0.3,
-            "operation": "ADDITION",
-            "learnPointCost": 2,
-            "regretPointCost": 1,
-            "unlockLevel": 10,
-            "id": "stone_skin_3"
-          },
-          {
-            "type": "vanilla_attribute",
-            "attribute": "minecraft:generic.knockback_resistance",
-            "amount": 0.4,
-            "operation": "ADDITION",
-            "learnPointCost": 2,
-            "regretPointCost": 1,
-            "unlockLevel": 20,
-            "id": "stone_skin_4"
-          }
-        ]
-      },
 
       {
         "type": "grouped",

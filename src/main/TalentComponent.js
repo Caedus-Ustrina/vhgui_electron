@@ -6,6 +6,14 @@ import { ReadBuildInfo, StoreLevelInfo, StoreTalentInfo } from "./StoreBuildInfo
 import { LevelUpButton, LevelDownButton, LevelIndicatorsContainer, LevelIndicators } from "./LevelingButtons";
 import { GroupContainer } from "./GroupContainer";
 
+const images = {};
+
+function importAll(r){
+    r.keys().forEach((key) => images[key] = r(key));
+}
+
+importAll(require.context('../skills', false));
+
 export const TalentInterface = (props) => {
     return <div className="TalentContainer">
             <Talents handleTotalLevel = {props.handleTotalLevel} 
@@ -59,13 +67,14 @@ export const TalentComponent = (props) => {
     }, []);
 
     function handleLevelUp(){
-        if(props.totalLevel + costToLearn <= 100 && props.groupLevel + costToLearn <= props.maxGroupLevel){
+        if(props.totalLevel + costToLearn <= 100 && !(props.groupLevel + costToLearn >= props.maxGroupLevel || 0)){
             if(level < maxLearnableTier){
                 setLevel(level+1);
                 props.handleTotalLevel(props.talent.tiers[level].learnPointCost);
             }
             StoreLevelInfo(props.talent.id,  level < maxLearnableTier ? 1 : 0, false);
         }
+        console.log(props.maxGroupLevel);
     }
 
     function handleLevelDown(){
@@ -77,6 +86,11 @@ export const TalentComponent = (props) => {
         StoreLevelInfo(props.talent.id,  level > 0 ? -1 : 0, false);
     }
 
+    function toLower(string){
+        let newString = string.toLowerCase();
+        return newString.replace(/\s/, '_');
+    }
+
     return <div className="SkillContainer">
         <LevelUpButton handleMouseDown = {handleLevelUp} 
             handleEnterInterfaceButton={((e) => props.handleEnterInterfaceButton(e))}
@@ -86,6 +100,7 @@ export const TalentComponent = (props) => {
             handleLeaveInterfaceButton={props.handleLeaveInterfaceButton}/>
         <div className="item">
             <button className="specializationButton" onMouseDown={() => props.handleDescription(props.talent.id)}>
+                <img src={images["./" + toLower(props.talent.id) + ".png"]}/>
                 {props.talent.name}
             </button>
             <LevelIndicatorsContainer maxLearnableTier={maxLearnableTier}

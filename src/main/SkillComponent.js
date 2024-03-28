@@ -139,7 +139,6 @@ const Specialization = (props) => {
         props.handleMouseDown(props.specialization.id)
         props.handleDescription(props.specialization.id)
         props.handleSpecilizationInfo(props.specialization.id);
-        console.log("./" + toLower(props.specialization.id) + ".png");
     }
 
     function toLower(string){
