@@ -4,6 +4,14 @@ import classNames from "classnames";
 import { ReadBuildInfo, StoreLevelInfo, StoreSkillInfo, InitializeBuildInfo } from "./StoreBuildInfo";
 import { LevelUpButton, LevelDownButton, LevelIndicatorsContainer, LevelIndicators } from "./LevelingButtons";
 
+const images = {};
+
+function importAll(r){
+    r.keys().forEach((key) => images[key] = r(key));
+}
+
+importAll(require.context('../abilities', false));
+
 export const SkillInterface = (props) => {
     return <Skills handleTotalLevel = {props.handleTotalLevel} 
         handleEnterInterfaceButton={props.handleEnterInterfaceButton}
@@ -126,18 +134,28 @@ const Specializations = (props) => {
 }
 
 const Specialization = (props) => {
-
+    const [imageSource, setImageSource] = useState('');
     function handleMouseDown(e) {
         props.handleMouseDown(props.specialization.id)
         props.handleDescription(props.specialization.id)
         props.handleSpecilizationInfo(props.specialization.id);
     }
+
+    function toLower(string){
+        return string.toLowerCase();
+    }
+
+    useEffect(() =>{
+        setImageSource(images["./" + toLower(props.specialization.name) + ".png"]);
+        console.log(imageSource);
+    }, [props.specialization.name]);
     
     return <button className ={classNames("specializationButton", {"activeSpecializationButton" : props.selected})}
             key={props.specialization.id}
             onMouseEnter={props.handleMouseEnter}
             onMouseLeave={props.handleMouseLeave}
             onMouseDown={() => handleMouseDown(props.specialization.id)}>
+                <img src={imageSource} />
                 {props.specialization.name}
         </button>
 }
